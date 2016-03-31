@@ -16,13 +16,27 @@
 
 source 'https://rubygems.org'
 
-gem 'test-kitchen'
-gem 'berkshelf'
+gem 'berkshelf', '= 4.0.1'
+gem 'rubocop', '= 0.36.0'
 gem 'chef'
-gem 'kitchen-vagrant'
 gem 'vagrant-wrapper'
-gem 'foodcritic', '>= 3.0.3'
+gem 'foodcritic', '= 5.0.0'
 gem 'kitchen-docker'
 gem 'travis', '~> 1.7'
 gem 'kitchen-sync'
 gem 'stove'
+
+group :test do
+  gem 'chefspec', '= 4.5.0'
+  gem 'chef-zero', '= 4.5.0'
+end
+
+group :integration do
+  gem 'activesupport', '= 4.2.5.2'
+  gem 'serverspec', '= 2.29.1'
+  gem 'test-kitchen', '= 1.6.0'
+  gem 'kitchen-vagrant', '= 0.19.0'
+  gem 'kitchen-ec2', '= 1.0.0'
+  gem 'winrm', '= 1.7.2'
+  gem 'winrm-fs', '= 0.3.1'
+end

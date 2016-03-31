@@ -7,15 +7,19 @@ chef_versions:
 - 12
 
 platforms:
-- name: ubuntu-12.04
-  run_list:
-  - recipe[apt]
-- name: ubuntu-10.04
-  run_list:
+  - name: gdp-centos-7.1
+    driver:
+      box: centos-71
+      box_url: https://deploy.gmti.gbahn.net/Images/centos7/vagrant/centos71-cloud-1.0.0.box
+  - name: ubuntu-12.04
+    run_list:
     - recipe[apt]
-- name: centos-6.4
+  - name: ubuntu-10.04
+    run_list:
+      - recipe[apt]
+  - name: centos-6.4
 
 suites:
-- name: default
-  run_list:
-  - recipe[supervisor]
+  - name: default
+    run_list:
+    - recipe[supervisor]
