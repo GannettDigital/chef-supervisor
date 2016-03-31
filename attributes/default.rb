@@ -23,7 +23,7 @@ default['supervisor']['inet_port'] = nil
 default['supervisor']['inet_username'] = nil
 default['supervisor']['inet_password'] = nil
 case node['platform_family']
-when "smartos"
+when 'smartos'
   default['supervisor']['dir'] = '/opt/local/etc/supervisor.d'
   default['supervisor']['conffile'] = '/opt/local/etc/supervisord.conf'
 else
