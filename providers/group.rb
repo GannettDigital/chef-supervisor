@@ -18,6 +18,8 @@
 # limitations under the License.
 #
 
+use_inline_resources
+
 action :enable do
   execute 'supervisorctl update' do
     action :nothing

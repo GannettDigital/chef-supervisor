@@ -8,7 +8,7 @@
 *.bk
 *.bkup
 .kitchen.local.yml
-Berksfile.lock
+*.lock
 
 .bundle/
 .cache/

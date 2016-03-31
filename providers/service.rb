@@ -18,6 +18,8 @@
 # limitations under the License.
 #
 
+use_inline_resources
+
 action :enable do
   converge_by("Enabling #{new_resource}") do
     enable_service
@@ -44,8 +46,8 @@ action :start do
     Chef::Log.debug "#{new_resource} is already starting."
     wait_til_state('RUNNING')
   else
-    converge_by("Starting #{ new_resource }") do
-      if not supervisorctl('start')
+    converge_by("Starting #{new_resource}") do
+      unless supervisorctl('start')
         raise "Supervisor service #{new_resource.name} was unable to be started"
       end
     end
@@ -62,8 +64,8 @@ action :stop do
     Chef::Log.debug "#{new_resource} is already stopping."
     wait_til_state('STOPPED')
   else
-    converge_by("Stopping #{ new_resource }") do
-      if not supervisorctl('stop')
+    converge_by("Stopping #{new_resource}") do
+      unless supervisorctl('stop')
         raise "Supervisor service #{new_resource.name} was unable to be stopped"
       end
     end
@@ -75,14 +77,18 @@ action :restart do
   when 'UNAVAILABLE'
     raise "Supervisor service #{new_resource.name} cannot be restarted because it does not exist"
   else
-    converge_by("Restarting #{ new_resource }") do
-      if not supervisorctl('restart')
+    converge_by("Restarting #{new_resource}") do
+      unless supervisorctl('restart')
         raise "Supervisor service #{new_resource.name} was unable to be started"
       end
     end
   end
 end
 
+# https://github.com/bbatsov/rubocop/issues/494
+# Rubocop thinks method is "too big". Fixing syntax is one thing, I really don't want to re-write the *logic*
+# rubocop:disable Metrics/AbcSize
+# rubocop:disable Metrics/MethodLength
 def enable_service
   e = execute 'supervisorctl update' do
     action :nothing
@@ -100,10 +106,10 @@ def enable_service
   end
 
   t.run_action(:create)
-  if t.updated?
-    e.run_action(:run)
-  end
+  e.run_action(:run) if t.updated?
 end
+# rubocop:enable Metrics/AbcSize
+# rubocop:enable Metrics/MethodLength
 
 def disable_service
   execute 'supervisorctl update' do
