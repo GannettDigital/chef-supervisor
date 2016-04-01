@@ -21,7 +21,7 @@ include_recipe 'python'
 
 package 'py27-expat' do
   action :install
-  only_if platform_family?('smartos')
+  only_if { platform_family?('smartos') == true }
 end
 
 python_pip 'supervisor' do
