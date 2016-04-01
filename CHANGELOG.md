@@ -2,6 +2,11 @@ supervisor Cookbook CHANGELOG
 =============================
 This file is used to list changes made in each version of the supervisor cookbook.
 
+v0.6.0
+------
+### Update
+- John Crawford - adding systemd to handle starting supervisor (GDAES-3467)
+
 v0.5.0
 ------
 ### Update

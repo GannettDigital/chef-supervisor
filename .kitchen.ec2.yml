@@ -30,4 +30,7 @@ platforms:
 suites:
   - name: default
     run_list:
-    - recipe[supervisor]
+    - recipe[supervisor::default]
+  - name: in_systemd
+    run_list:
+    - recipe[supervisor::in_systemd]

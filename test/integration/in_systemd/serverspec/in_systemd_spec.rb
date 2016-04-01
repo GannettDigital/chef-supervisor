@@ -1,6 +1,6 @@
 require_relative 'spec_helper'
 
-if "#{os[:family]}" == 'smartos'
+if os[:family].to_s == 'smartos'
   describe service('supervisord') do
     it { should be_enabled }
   end
