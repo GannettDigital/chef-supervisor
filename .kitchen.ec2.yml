@@ -32,3 +32,7 @@ suites:
     run_list:
     - recipe[supervisor::tailgun]
     - recipe[supervisor::default]
+  - name: in_systemd
+    run_list:
+    - recipe[supervisor::tailgun]
+    - recipe[supervisor::in_systemd]
