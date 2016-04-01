@@ -1,5 +1,8 @@
 supervisor Cookbook
 ===================
+
+[![Build Status](https://travis-ci.org/poise/supervisor.svg?branch=master)](https://travis-ci.org/poise/supervisor)
+
 Installs (Python) supervisor and provides resources to configure services
 
 
@@ -24,8 +27,22 @@ Attributes
 - `node['supervisor']['loglevel']` - the minimum severity for those log messages, default `'info'`
 - `node['supervisor']['minfds']` - The minimum number of file descriptors that must be available before supervisord will start successfully.
 - `node['supervisor']['minprocs']` - The minimum number of process descriptors that must be available before supervisord will start successfully.
-- `node['supervisor']['version']` - Sets the version of supervisor to install, must be 3.0+ to use minprocs and minfds.
+- `node['supervisor']['nocleanup']` - If true, retain child log files at startup, the default is false
+- `node['supervisor']['version']` - Sets the version of supervisor to install, must be 3.0+ to use minprocs, minfds and nocleanup.
 - `node['supervisor']['socket_file']` - location of supervisor socket file.
+- `node['supervisor']['ctlplugins']` - entries for `supervisorctl` plugins.
+  For instance, to install [serialrestart](https://pypi.python.org/pypi/supervisor-serialrestart), you'd manually add this to your config:
+
+    ```text
+    [ctlplugin:serialrestart]
+    supervisor.ctl_factory = supervisorserialrestart.controllerplugin:make_serialrestart_controllerplugin
+	```
+  Which can be achieved using
+    ```ruby
+	node.default['supervisor']['ctlplugins'] = ({
+	 'serialrestart'=> 'supervisorserialrestart.controllerplugin:make_serialrestart_controllerplugin'
+     })
+	 ```
 
 
 Resources/Providers

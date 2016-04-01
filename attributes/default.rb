@@ -23,7 +23,7 @@ default['supervisor']['inet_port'] = nil
 default['supervisor']['inet_username'] = nil
 default['supervisor']['inet_password'] = nil
 case node['platform_family']
-when "smartos"
+when 'smartos'
   default['supervisor']['dir'] = '/opt/local/etc/supervisor.d'
   default['supervisor']['conffile'] = '/opt/local/etc/supervisord.conf'
 else
@@ -36,4 +36,6 @@ default['supervisor']['logfile_backups'] = 10
 default['supervisor']['loglevel'] = 'info'
 default['supervisor']['minfds'] = 1024
 default['supervisor']['minprocs'] = 200
+default['supervisor']['nocleanup'] = false
 default['supervisor']['socket_file'] = '/var/run/supervisor.sock'
+default['supervisor']['ctlplugins'] = {}

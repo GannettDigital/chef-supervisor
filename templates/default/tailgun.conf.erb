@@ -1,0 +1,8 @@
+[program:tailgun]
+command=/bin/tail -f /var/log/tailgun/tailgun.txt
+autostart=true
+autorestart=true
+startretries=3
+stderr_logfile=/var/log/tailgun/tailgun.err.log
+stdout_logfile=/var/log/tailgun/tailgun.out.log
+
