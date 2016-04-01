@@ -30,4 +30,5 @@ platforms:
 suites:
   - name: default
     run_list:
-    - recipe[supervisor]
+    - recipe[supervisor::tailgun]
+    - recipe[supervisor::default]
