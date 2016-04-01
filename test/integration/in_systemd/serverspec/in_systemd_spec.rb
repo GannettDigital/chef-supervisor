@@ -19,6 +19,9 @@ else
     it { should be_file }
     it { should be_owned_by 'root' }
   end
+  describe command('/usr/local/bin/supervisorctl status') do
+    its(:stdout) { should contain('tailgun\\s+RUNNING') }
+  end
   describe file('/var/log/tailgun/tailgun.out.log') do
     it { should exist }
     it { should be_file }
