@@ -89,7 +89,7 @@ when 'amazon', 'centos', 'debian', 'fedora', 'redhat', 'ubuntu', 'raspbian'
 
   service 'supervisor' do
     supports :status => true, :restart => true
-    action [:enable, :start]
+    action [:enable]
   end
 when 'smartos'
   directory '/opt/local/share/smf/supervisord' do
@@ -113,5 +113,41 @@ when 'smartos'
 
   service 'supervisord' do
     action [:enable]
+  end
+end
+
+# Setup systemd template for running supervisord
+if node['platform'] == 'smartos'
+  # Not tested with smartos
+  template '/etc/systemd/system/supervisord.service' do
+    source 'supervisor.service.erb'
+    owner 'root'
+    group 'root'
+    mode '755'
+    variables(
+      :supervisor_dir => node['python']['prefix_dir'].to_s
+    )
+  end
+  execute 'systemd-start-supervisord' do
+    command 'systemctl start supervisord.service'
+    action :run
+  end
+else
+  template '/etc/systemd/system/supervisor.service' do
+    source 'supervisor.service.erb'
+    owner 'root'
+    group 'root'
+    mode '755'
+    variables(
+      :supervisor_dir => node['python']['prefix_dir'].to_s
+    )
+  end
+  execute 'systemd-enable-supervisor' do
+    command 'systemctl enable supervisor.service'
+    action :run
+  end
+  execute 'systemd-start-supervisor' do
+    command 'systemctl start supervisor.service'
+    action :run
   end
 end
