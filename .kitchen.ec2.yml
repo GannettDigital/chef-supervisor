@@ -36,3 +36,10 @@ suites:
     run_list:
     - recipe[supervisor::tailgun]
     - recipe[supervisor::in_systemd]
+  - name: old-version
+    run_list:
+    - recipe[supervisor::tailgun]
+    - recipe[supervisor::default]
+    attributes:
+      supervisor:
+        version: 3.1.0
